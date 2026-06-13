@@ -13,5 +13,17 @@ services:
     volumes:
       - finance_mysql_data:/var/lib/mysql
 
+  finance-app:
+    image: igorkoishman/finance:latest
+    container_name: finance-app
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://finance-db:3306/finance?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    depends_on:
+      - finance-db
+
 volumes:
   finance_mysql_data:
