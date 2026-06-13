@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  finance-db:
+    image: igorkoishman/mysql:latest
+    container_name: finance-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: finance
+    ports:
+      - "3307:3306"
+    volumes:
+      - finance_mysql_data:/var/lib/mysql
+
+volumes:
+  finance_mysql_data:
