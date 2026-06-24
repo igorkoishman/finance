@@ -15,9 +15,15 @@ A modern, full-stack Personal Finance Dashboard that allows users to securely tr
 
 ### Frontend
 * **React 19** (Vite)
-* **Recharts** (For interactive financial visualizations)
+* **Recharts** (For dynamic line, pie, and bar charts with time-series grouping and category breakdown)
 * **Ag-Grid Community** (For robust, sortable, and filterable data tables)
-* **Vanilla CSS** (Custom, modern aesthetic UI design)
+* **Vanilla CSS** (Custom, modern aesthetic UI design with glassmorphism and animated components)
+
+## 📊 Core Features
+* **Dynamic Transaction Graphing:** Switch seamlessly between Line, Bar, and Pie charts to visualize transaction trends.
+* **Deep Filtering:** Filter data dynamically by Year (using an intuitive pill-selector UI) and precise Date ranges.
+* **Categorical Breakdown:** Perform multi-select filtering on unique grouping parameters (e.g. `txnMonth`, `paymentMethod`, `actor`).
+* **Interactive Data Grid:** A high-performance transaction table enabling extensive searching and column manipulation.
 
 ### Infrastructure & CI/CD
 * **Docker & Docker Compose**
@@ -49,7 +55,7 @@ npm run dev
 ./mvnw clean install -DskipTests
 ./mvnw spring-boot:run
 ```
-*Note: The Vite frontend is configured to proxy `/api` requests to the local Spring Boot server running on `http://localhost:8080`.*
+*Note: The Vite frontend is configured to proxy `/api` requests to the local Spring Boot server running on `http://localhost:8081`.*
 
 ### 3. Running in Production Mode (Full Docker)
 To run the fully bundled application using the pre-built Docker image from the CI/CD pipeline:
@@ -57,7 +63,7 @@ To run the fully bundled application using the pre-built Docker image from the C
 docker-compose pull
 docker-compose up -d
 ```
-The application will be accessible at `http://localhost:8080`.
+The application will be accessible at `http://localhost:8081`.
 > **Note for Mac users (Apple Silicon):** The CI/CD pipeline builds the image for `linux/amd64`. If you are on an M-series Mac, Docker Desktop will seamlessly run the container using Rosetta 2 emulation.
 
 ---
