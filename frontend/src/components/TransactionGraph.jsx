@@ -26,8 +26,8 @@ export default function TransactionGraph() {
     const allFields = [...timeFields, ...categoricalFields];
 
     useEffect(() => {
-        axios.get('/api/transactions')
-             .then(res => setData(res.data))
+        axios.get('/finance/transactions/v1?size=10000')
+             .then(res => setData(res.data.content || []))
              .catch(err => console.error(err));
     }, []);
 

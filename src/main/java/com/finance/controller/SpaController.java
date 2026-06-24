@@ -6,7 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SpaController {
 
-    @GetMapping(value = "/{path:[^\\.]*}")
+    @GetMapping({
+        "/",
+        "/finance/auth/v1/login",
+        "/finance/auth/v1/register",
+        "/finance/dashboard/v1",
+        "/finance/dashboard/v1/**"
+    })
     public String redirect() {
         return "forward:/index.html";
     }

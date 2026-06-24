@@ -9,9 +9,9 @@ export default function Layout({ setAuth }) {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/api/auth/logout');
+            await axios.post('/finance/auth/v1/logout');
             setAuth(false);
-            navigate('/login');
+            navigate('/finance/auth/v1/login');
         } catch (err) {
             console.error('Logout failed', err);
         }
@@ -22,10 +22,10 @@ export default function Layout({ setAuth }) {
             <nav className="top-nav">
                 <div className="nav-brand">Finance App</div>
                 <div className="nav-links">
-                    <Link to="/dashboard/graph" className={`nav-link ${location.pathname.includes('/graph') ? 'active' : ''}`}>
+                    <Link to="/finance/dashboard/v1/graph" className={`nav-link ${location.pathname.includes('/graph') ? 'active' : ''}`}>
                         <BarChart2 size={18} /> Graph
                     </Link>
-                    <Link to="/dashboard/table" className={`nav-link ${location.pathname.includes('/table') ? 'active' : ''}`}>
+                    <Link to="/finance/dashboard/v1/table" className={`nav-link ${location.pathname.includes('/table') ? 'active' : ''}`}>
                         <TableIcon size={18} /> Table
                     </Link>
                 </div>

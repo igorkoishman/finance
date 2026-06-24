@@ -16,12 +16,12 @@ export default function Login({ setAuth }) {
             formData.append('username', username);
             formData.append('password', password);
 
-            await axios.post('/api/auth/login', formData, {
+            await axios.post('/finance/auth/v1/login', formData, {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
             
             setAuth(true);
-            navigate('/dashboard');
+            navigate('/finance/dashboard/v1');
         } catch (err) {
             setError('Invalid username or password');
         }
@@ -54,7 +54,7 @@ export default function Login({ setAuth }) {
                     <button type="submit">Log In</button>
                 </form>
                 <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    <Link to="/register" style={{ color: '#4CAF50', textDecoration: 'none', fontSize: '0.9rem' }}>Need an account? Sign Up</Link>
+                    <Link to="/finance/auth/v1/register" style={{ color: '#4CAF50', textDecoration: 'none', fontSize: '0.9rem' }}>Need an account? Sign Up</Link>
                 </div>
             </div>
         </div>

@@ -20,11 +20,11 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/graph/data');
+                const response = await axios.get('/finance/graph/v1/data');
                 setData(response.data);
             } catch (err) {
                 if (err.response && err.response.status === 401) {
-                    navigate('/login');
+                    navigate('/finance/auth/v1/login');
                 }
             }
         };
@@ -33,8 +33,8 @@ export default function Dashboard() {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/api/auth/logout');
-            navigate('/login');
+            await axios.post('/finance/auth/v1/logout');
+            navigate('/finance/auth/v1/login');
         } catch (err) {
             console.error('Logout failed', err);
         }
