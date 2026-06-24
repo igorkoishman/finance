@@ -15,13 +15,13 @@ export default function Register() {
         setError('');
         setSuccess('');
         try {
-            await axios.post('/api/auth/register', {
+            await axios.post('/finance/auth/v1/register', {
                 username,
                 password
             });
             
             setSuccess('Registration successful! Redirecting to login...');
-            setTimeout(() => navigate('/login'), 2000);
+            setTimeout(() => navigate('/finance/auth/v1/login'), 2000);
         } catch (err) {
             if (err.response && err.response.data && err.response.data.message) {
                 setError(err.response.data.message);
@@ -59,7 +59,7 @@ export default function Register() {
                     <button type="submit">Sign Up</button>
                 </form>
                 <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    <Link to="/login" style={{ color: '#4CAF50', textDecoration: 'none', fontSize: '0.9rem' }}>Already have an account? Log In</Link>
+                    <Link to="/finance/auth/v1/login" style={{ color: '#4CAF50', textDecoration: 'none', fontSize: '0.9rem' }}>Already have an account? Log In</Link>
                 </div>
             </div>
         </div>

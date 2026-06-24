@@ -31,22 +31,22 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Disabled for skeleton simplicity
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/finance/auth/v1/**").permitAll()
+                .requestMatchers("/finance/**").authenticated()
                 .anyRequest().permitAll() // Allow serving static React files
             )
             .exceptionHandling(exc -> exc
                 .authenticationEntryPoint((request, response, authException) -> {
-                    if (request.getRequestURI().startsWith("/api/")) {
+                    if (request.getRequestURI().startsWith("/finance/")) {
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
                     } else {
-                        response.sendRedirect("/login");
+                        response.sendRedirect("/finance/auth/v1/login");
                     }
                 })
             )
             .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/api/auth/login")
+                .loginPage("/finance/auth/v1/login")
+                .loginProcessingUrl("/finance/auth/v1/login")
                 .successHandler((request, response, authentication) -> {
                     response.setStatus(HttpServletResponse.SC_OK);
                 })
@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/api/auth/logout")
+                .logoutUrl("/finance/auth/v1/logout")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
             );
         return http.build();

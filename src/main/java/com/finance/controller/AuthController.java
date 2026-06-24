@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/finance/auth/v1")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -42,5 +42,17 @@ public class AuthController {
         userRepository.save(newUser);
 
         return ResponseEntity.ok(Map.of("message", "User registered successfully"));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe() {
+        org.springframework.security.core.Authentication authentication = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(Map.of(
+            "username", authentication.getName(),
+            "role", authentication.getAuthorities().toString()
+        ));
     }
 }

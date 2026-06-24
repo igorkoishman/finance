@@ -15,15 +15,32 @@ export default function TransactionTable() {
     const [selectedMonths, setSelectedMonths] = useState(new Set());
 
     useEffect(() => {
-        axios.get('/api/transactions')
-             .then(res => setAllData(res.data))
-             .catch(err => console.error(err));
-    }, []);
+        const params = new URLSearchParams();
+        if (viewType) params.append('type', viewType);
+        if (selectedYears.size > 0) {
+            selectedYears.forEach(y => params.append('years', y));
+        }
+        if (selectedMonths.size > 0) {
+            selectedMonths.forEach(m => params.append('months', m));
+        }
+        params.append('size', 1000); // Fetch a reasonable limit for client-side display
 
-    // Extract unique available years from data
+        axios.get(`/finance/transactions/v1?${params.toString()}`)
+             .then(res => {
+                 // Spring Data Page object returns data in 'content' array
+                 setAllData(res.data.content || []);
+             })
+             .catch(err => console.error(err));
+    }, [viewType, selectedYears, selectedMonths]);
+
+    // Extract unique available years from data (this might be limited by current fetch, but we can hardcode or rely on what's fetched)
     const availableYears = useMemo(() => {
-        return [...new Set(allData.map(t => t.txnYear))].filter(Boolean).sort((a,b) => b-a);
-    }, [allData]);
+        // Ideally this should come from a separate API, but for now we extract from current data or we can just provide a static list or keep it simple.
+        // If we are filtering on backend, the available years might disappear when filtering.
+        // Let's use a static list for the last 5 years to ensure filters are always available.
+        const currentYear = new Date().getFullYear();
+        return [currentYear, currentYear - 1, currentYear - 2, currentYear - 3, currentYear - 4];
+    }, []);
 
     const availableMonths = [
         { num: 1, name: 'Jan' }, { num: 2, name: 'Feb' }, { num: 3, name: 'Mar' },
@@ -47,14 +64,9 @@ export default function TransactionTable() {
     };
 
     const rowData = useMemo(() => {
-        return allData.filter(txn => {
-            if (txn.txnType !== viewType) return false;
-            // If filters are selected, only show matches. If empty, show all.
-            if (selectedYears.size > 0 && !selectedYears.has(txn.txnYear)) return false;
-            if (selectedMonths.size > 0 && !selectedMonths.has(txn.txnMonthNum)) return false;
-            return true;
-        });
-    }, [allData, viewType, selectedYears, selectedMonths]);
+        // Backend has already filtered the data
+        return allData;
+    }, [allData]);
 
     const colDefs = useMemo(() => {
         if (viewType === 'income') {
