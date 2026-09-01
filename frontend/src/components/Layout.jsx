@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { LogOut, BarChart2, Table as TableIcon } from 'lucide-react';
+import { LogOut, BarChart2, Table as TableIcon, Upload } from 'lucide-react';
 import './Layout.css';
 
 export default function Layout({ setAuth }) {
@@ -27,6 +27,9 @@ export default function Layout({ setAuth }) {
                     </Link>
                     <Link to="/finance/dashboard/v1/table" className={`nav-link ${location.pathname.includes('/table') ? 'active' : ''}`}>
                         <TableIcon size={18} /> Table
+                    </Link>
+                    <Link to="/finance/dashboard/v1/import" className={`nav-link ${location.pathname.includes('/import') ? 'active' : ''}`}>
+                        <Upload size={18} /> Import
                     </Link>
                 </div>
                 <button className="logout-btn" onClick={handleLogout}>

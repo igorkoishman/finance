@@ -52,4 +52,9 @@ public class TransactionController {
 
         return transactionRepository.findAll(spec, pageable);
     }
+
+    @GetMapping("/topics")
+    public List<String> getUniqueTopics() {
+        return transactionRepository.findDistinctTopics();
+    }
 }

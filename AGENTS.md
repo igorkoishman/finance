@@ -1,7 +1,7 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
-at /Users/igorkoishman/PycharmProjects/finance/specs/001-graph-tab-options/plan.md
+at /Users/igorkoishman/PycharmProjects/finance/specs/002-file-import-dashboard/plan.md
 <!-- SPECKIT END -->
 
 # Agent Technical Summary & Instructions

@@ -6,6 +6,7 @@ import Register from './components/Register'
 import Layout from './components/Layout'
 import TransactionGraph from './components/TransactionGraph'
 import TransactionTable from './components/TransactionTable'
+import ImportDashboard from './components/ImportDashboard'
 
 // Ensure cookies are sent with every request for session persistence
 axios.defaults.withCredentials = true;
@@ -48,6 +49,7 @@ function App() {
           <Route index element={<Navigate to="graph" replace />} />
           <Route path="graph" element={<TransactionGraph />} />
           <Route path="table" element={<TransactionTable />} />
+          <Route path="import" element={<ImportDashboard />} />
         </Route>
 
         <Route path="*" element={<Navigate to={isAuthenticated ? "/finance/dashboard/v1" : "/finance/auth/v1/login"} />} />
